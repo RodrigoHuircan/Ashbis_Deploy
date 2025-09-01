@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Crud de Prueba
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,8 +13,63 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-card>
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [(ngModel)]="newUser.nombre" placeholder="Escribe el nombre"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label position="stacked">Edad</ion-label>
+      <ion-input type="number" [(ngModel)]="newUser.edad" placeholder="Escribe la edad"></ion-input>
+    </ion-item>
+  
+  </ion-card>
+
+
+  <div style="margin: 20px">
+    <ion-button (click)="save()" expand="block" shape="round">
+      Guardar
+    </ion-button>
   </div>
+
+  @if (cargando){
+    <div style="text-align: center;">
+      <ion-spinner name="bubbles"></ion-spinner>
+    </div>
+  }
+
+
+
+  <ion-list>
+    @for (user of users; track $index) {
+      <ion-item>
+        <ion-label>Nombre: {{ user.nombre }}
+          <p>Edad: {{ user.edad }}</p>
+        </ion-label>
+        
+        <ion-buttons slot="end">
+          <ion-button (click)="edit(user)">
+            <ion-icon slot="icon-only" name="create" color="primary"></ion-icon>
+          </ion-button>
+
+          <ion-button (click)="delete(user)">
+            <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    }
+  </ion-list>
+
+  <ion-list>
+    @for (mascota of mascotas; track $index) {
+      <ion-item>
+        <ion-label>Nombre: {{ mascota.nombre }}
+          <p>Edad: {{ mascota.edad }}</p>
+          <p>Tipo: {{ mascota.tipo }}</p>
+        </ion-label>
+        
+      </ion-item>
+    }
+  </ion-list>
 </ion-content>
