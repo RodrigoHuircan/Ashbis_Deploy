@@ -8,7 +8,6 @@ export class AuthenticationService {
   auth: Auth = inject(Auth);
 
   constructor(){
-
   }
 
   async createUser(email: string, password: string) {

@@ -13,21 +13,22 @@ export class AppComponent {
   firestore: Firestore = inject(Firestore);
   private authenticationService: AuthenticationService = inject(AuthenticationService)
   constructor() {
-    this.registrarse()
+    //this.registrarse()
+    // this.login()
   }
 
-async registrarse() {
-  const form = { email: 'carlos@gmail.com', password: '123456' };
-  console.log('registrarse ->', form);
-  try {
-    const user = await this.authenticationService.createUser(form.email, form.password);
-    console.log('user ->', user); // Aquí verás el UserCredential completo
-  } catch (err: any) {
-    if (err?.code === 'auth/email-already-in-use') {
-      console.warn('El correo ya está registrado.');
-    } else {
-      console.error('Error al crear usuario:', err);
+  async registrarse() {
+    const form = { email: 'carlos@gmail.com', password: '123456' };
+    console.log('registrarse ->', form);
+    try {
+      const user = await this.authenticationService.createUser(form.email, form.password);
+      console.log('user ->', user); // Aquí verás el UserCredential completo
+    } catch (err: any) {
+      if (err?.code === 'auth/email-already-in-use') {
+        console.warn('El correo ya está registrado.');
+      } else {
+        console.error('Error al crear usuario:', err);
+      }
     }
   }
-}
 }
