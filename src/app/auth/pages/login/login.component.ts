@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from 'src/app/firebase/authentication';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { ToastController, IonContent, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,
+  IonItem, IonLabel, IonInput, IonNote, IonButtons, IonButton, IonIcon, IonSpinner
+ } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { addIcons }  from 'ionicons';
 import * as icons from 'ionicons/icons';
@@ -11,7 +13,8 @@ import * as icons from 'ionicons/icons';
   templateUrl: './login.component.html',
   standalone: true,
   styleUrls: ['./login.component.scss'],
-  imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, IonContent, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent,
+  IonItem, IonLabel, IonInput, IonNote, IonButtons, IonButton, IonIcon, IonSpinner],
 })
 export class LoginComponent  implements OnInit {
   //Declaro los módulos a usar
