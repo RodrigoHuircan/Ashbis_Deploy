@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from 'src/app/firebase/authentication';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { addIcons }  from 'ionicons';
+import * as icons from 'ionicons/icons';
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
+  standalone: true,
   styleUrls: ['./login.component.scss'],
+  imports: [CommonModule, IonicModule, ReactiveFormsModule, FormsModule],
 })
 export class LoginComponent  implements OnInit {
   //Declaro los módulos a usar
@@ -17,11 +19,13 @@ export class LoginComponent  implements OnInit {
   private authenticationService = inject(AuthenticationService);
   private router = inject(Router);
   private toastCtrl = inject(ToastController);
-
+  verPass: boolean = false;
   datosForm!: FormGroup;
   cargando = false;
 
   constructor() {
+    addIcons({ eyeOutline : icons['eyeOutline']})
+    addIcons({ eyeOffOutline : icons['eyeOffOutline']})
   }
 
   ngOnInit() {

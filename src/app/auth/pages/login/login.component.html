@@ -1,97 +1,83 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login simple</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .card {
-      background: #111827;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 360px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    }
-    h1 {
-      margin: 0 0 1.5rem;
-      font-size: 1.4rem;
-      text-align: center;
-      color: #fff;
-    }
-    label {
-      display: block;
-      margin-bottom: .25rem;
-      font-size: .9rem;
-      color: #9ca3af;
-    }
-    input {
-      width: 100%;
-      padding: .7rem .9rem;
-      border-radius: 8px;
-      border: 1px solid #374151;
-      background: #1f2937;
-      color: #fff;
-      margin-bottom: 1rem;
-    }
-    input:focus {
-      border-color: #3b82f6;
-      outline: none;
-    }
-    .btn {
-      width: 100%;
-      padding: .8rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .btn-primary {
-      background: #3b82f6;
-      color: #fff;
-    }
-    .btn-primary:hover {
-      background: #1e3a8a;
-    }
-    .btn-link {
-      margin-top: .5rem;
-      background: none;
-      color: #3b82f6;
-      text-decoration: underline;
-    }
-    .error {
-      font-size: .8rem;
-      color: #ef4444;
-      margin-top: -.5rem;
-      margin-bottom: .5rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Iniciar sesión</h1>
-    <form>
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="tucorreo@dominio.com" required />
-      <div class="error" id="emailError" style="display:none;">Email inválido</div>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form [formGroup]="datosForm" (ngSubmit)="login()" novalidate>
 
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" placeholder="Mínimo 6 caracteres" required minlength="6" />
-      <div class="error" id="passError" style="display:none;">Contraseña demasiado corta</div>
+    <ion-grid fixed>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" sizeSm="8" sizeMd="6" sizeLg="4">
 
-      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-      <button type="button" class="btn btn-link">Crear cuenta</button>
-    </form>
-  </div>
-</body>
-</html>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title class="ion-text-center">Iniciar sesión</ion-card-title>
+              <ion-card-subtitle class="ion-text-center">Ingresa tus credenciales</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+
+              <!-- Email -->
+              <ion-item lines="inset">
+                <ion-label position="stacked">Correo electrónico</ion-label>
+                <ion-input
+                  type="email"
+                  inputmode="email"
+                  placeholder="tu@correo.com"
+                  formControlName="email"
+                  autocomplete="email"
+                  />
+              </ion-item>
+              <ion-note color="danger" *ngIf="datosForm.get('email')?.touched && datosForm.get('email')?.hasError('required')">
+                El correo es obligatorio.
+              </ion-note>
+              <ion-note color="danger" *ngIf="datosForm.get('email')?.touched && datosForm.get('email')?.hasError('email')">
+                Formato de correo inválido.
+              </ion-note>
+
+              <!-- Password -->
+              <ion-item lines="inset" class="ion-margin-top">
+                <ion-label position="stacked">Contraseña</ion-label>
+                <ion-input
+                  [type]="verPass ? 'text' : 'password'"
+                  placeholder="Mínimo 6 caracteres"
+                  formControlName="password"
+                  autocomplete="current-password"
+                  />
+                <ion-buttons slot="end">
+                  <ion-button fill="clear" type="button" (click)="verPass = !verPass" [attr.aria-pressed]="verPass">
+                    <ion-icon [name]="verPass ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+              <ion-note color="danger" *ngIf="datosForm.get('password')?.touched && datosForm.get('password')?.hasError('required')">
+                La contraseña es obligatoria.
+              </ion-note>
+              <ion-note color="danger" *ngIf="datosForm.get('password')?.touched && datosForm.get('password')?.hasError('minlength')">
+                Debe tener al menos 6 caracteres.
+              </ion-note>
+
+              <!-- Actions -->
+              <div class="ion-text-center ion-margin-top">
+                <ion-button
+                  type="submit"
+                  expand="block"
+                  [disabled]="datosForm.invalid || cargando">
+                  <ion-spinner *ngIf="cargando" name="crescent" class="ion-margin-end"></ion-spinner>
+                  Entrar
+                </ion-button>
+
+                <ion-button
+                  type="button"
+                  fill="clear"
+                  (click)="irARegistro()"
+                  [disabled]="cargando">
+                  ¿No tienes cuenta? Regístrate
+                </ion-button>
+              </div>
+
+            </ion-card-content>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </form>
+</ion-content>
