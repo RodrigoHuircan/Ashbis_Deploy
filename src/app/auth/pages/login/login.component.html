@@ -1,63 +1,97 @@
-<ion-header translucent="true">
-  <ion-toolbar>
-    <ion-title>Iniciar sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login simple</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #111827;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    h1 {
+      margin: 0 0 1.5rem;
+      font-size: 1.4rem;
+      text-align: center;
+      color: #fff;
+    }
+    label {
+      display: block;
+      margin-bottom: .25rem;
+      font-size: .9rem;
+      color: #9ca3af;
+    }
+    input {
+      width: 100%;
+      padding: .7rem .9rem;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #1f2937;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    input:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+    .btn {
+      width: 100%;
+      padding: .8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: #3b82f6;
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #1e3a8a;
+    }
+    .btn-link {
+      margin-top: .5rem;
+      background: none;
+      color: #3b82f6;
+      text-decoration: underline;
+    }
+    .error {
+      font-size: .8rem;
+      color: #ef4444;
+      margin-top: -.5rem;
+      margin-bottom: .5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Iniciar sesión</h1>
+    <form>
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="tucorreo@dominio.com" required />
+      <div class="error" id="emailError" style="display:none;">Email inválido</div>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <form [formGroup]="datosForm" (ngSubmit)="login()" novalidate>
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" placeholder="Mínimo 6 caracteres" required minlength="6" />
+      <div class="error" id="passError" style="display:none;">Contraseña demasiado corta</div>
 
-    <ion-list lines="none">
-      <!-- Email -->
-      <ion-item>
-        <ion-icon name="mail-outline" slot="start"></ion-icon>
-        <ion-input
-          label="Email"
-          labelPlacement="floating"
-          type="email"
-          autocomplete="email"
-          inputmode="email"
-          formControlName="email"
-          placeholder="tucorreo@dominio.com"
-          (keyup.enter)="login()">
-        </ion-input>
-      </ion-item>
-      <ion-note color="danger"
-        *ngIf="datosForm.get('email')?.touched && datosForm.get('email')?.invalid">
-        {{ datosForm.get('email')?.hasError('required') ? 'El email es obligatorio' : 'Formato de email no válido' }}
-      </ion-note>
-
-      <!-- Password -->
-      <ion-item class="ion-margin-top">
-        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input
-          label="Contraseña"
-          labelPlacement="floating"
-          type="password"
-          autocomplete="current-password"
-          formControlName="password"
-          placeholder="Mínimo 6 caracteres"
-          (keyup.enter)="login()">
-        </ion-input>
-      </ion-item>
-      <ion-note color="danger"
-        *ngIf="datosForm.get('password')?.touched && datosForm.get('password')?.invalid">
-        {{ datosForm.get('password')?.hasError('required') ? 'La contraseña es obligatoria' : 'Mínimo 6 caracteres' }}
-      </ion-note>
-
-      <!-- Botón login -->
-      <ion-button class="ion-margin-top" type="submit" expand="block"
-                  [disabled]="cargando || datosForm.invalid">
-        <ion-spinner *ngIf="cargando" name="lines"></ion-spinner>
-        <span *ngIf="!cargando">Iniciar sesión</span>
-      </ion-button>
-
-      <!-- Ir a registro -->
-      <ion-button fill="clear" expand="block" type="button"
-                  (click)="irARegistro()">
-        Crear cuenta
-      </ion-button>
-    </ion-list>
-
-  </form>
-</ion-content>
+      <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+      <button type="button" class="btn btn-link">Crear cuenta</button>
+    </form>
+  </div>
+</body>
+</html>
