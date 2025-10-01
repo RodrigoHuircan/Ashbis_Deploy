@@ -10,8 +10,6 @@ export class AuthenticationService {
   auth: Auth = inject(Auth);
   authState = authState(this.auth)
   constructor(){
-    this.logout()
-
   }
 
   async createUser(email: string, password: string) {
@@ -19,7 +17,16 @@ export class AuthenticationService {
     return user;
   }
 
+  async login(email: string, password: string){
+    const user = await signInWithEmailAndPassword(this.auth, email, password)
+    return user;
+  }
+
   logout(){
-    signOut(this.auth)
+    signOut(this.auth);
+  }
+
+  getCurrentUser(){
+    return this.auth.currentUser;
   }
 }

@@ -1,3 +1,63 @@
-<p>
-  login works!
-</p>
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>Iniciar sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form [formGroup]="datosForm" (ngSubmit)="login()" novalidate>
+
+    <ion-list lines="none">
+      <!-- Email -->
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          type="email"
+          autocomplete="email"
+          inputmode="email"
+          formControlName="email"
+          placeholder="tucorreo@dominio.com"
+          (keyup.enter)="login()">
+        </ion-input>
+      </ion-item>
+      <ion-note color="danger"
+        *ngIf="datosForm.get('email')?.touched && datosForm.get('email')?.invalid">
+        {{ datosForm.get('email')?.hasError('required') ? 'El email es obligatorio' : 'Formato de email no válido' }}
+      </ion-note>
+
+      <!-- Password -->
+      <ion-item class="ion-margin-top">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input
+          label="Contraseña"
+          labelPlacement="floating"
+          type="password"
+          autocomplete="current-password"
+          formControlName="password"
+          placeholder="Mínimo 6 caracteres"
+          (keyup.enter)="login()">
+        </ion-input>
+      </ion-item>
+      <ion-note color="danger"
+        *ngIf="datosForm.get('password')?.touched && datosForm.get('password')?.invalid">
+        {{ datosForm.get('password')?.hasError('required') ? 'La contraseña es obligatoria' : 'Mínimo 6 caracteres' }}
+      </ion-note>
+
+      <!-- Botón login -->
+      <ion-button class="ion-margin-top" type="submit" expand="block"
+                  [disabled]="cargando || datosForm.invalid">
+        <ion-spinner *ngIf="cargando" name="lines"></ion-spinner>
+        <span *ngIf="!cargando">Iniciar sesión</span>
+      </ion-button>
+
+      <!-- Ir a registro -->
+      <ion-button fill="clear" expand="block" type="button"
+                  (click)="irARegistro()">
+        Crear cuenta
+      </ion-button>
+    </ion-list>
+
+  </form>
+</ion-content>
